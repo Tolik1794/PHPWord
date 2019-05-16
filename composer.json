@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpoffice/phpword": "^0.16.0",
+        "twbs/bootstrap": "4.3.1"
+    }
+}

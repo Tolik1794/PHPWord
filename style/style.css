@@ -1,0 +1,19 @@
+.sheet {
+    margin: 0 auto;
+    width: 900px;
+    font-size: 24px;
+    text-align:justify;
+}
+
+.dateLine {
+    display: flex; 
+    justify-content:space-between;
+}
+
+.h2 {
+    text-align:center
+}
+
+.formatText {
+    line-height: 1.5
+}
