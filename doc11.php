@@ -26,7 +26,7 @@ $section = $phpWord->addSection($sectionStyle);
 
 $dovNum = $_SESSION["DovNum"];
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
-$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
+$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
@@ -34,29 +34,29 @@ $section->addTitle(
     1
 );
 
-$section = $phpWord->addSection(array('breakType' => 'continuous', 'colsSpace' => 3000, 'colsNum' => 1));
+$table = $section->addTable([$tableStyle]);
 
-$text2 =
+$cellHLeft = array('align' => 'left');
+$cellHRight = array('align' => 'right');
+$cellVCentered = array('valign' => 'center');
 
-    $date . "г.";
+$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+$table = $section->addTable('Colspan Rowspan');
+$table->addRow(null, array('tblHeader' => true));
+$table->addCell(4250, $cellVCentered)->addText(
 
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spaceBefore' => 700)
+    $date . "г.",
+
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHLeft
 );
+$table->addCell(5000, $cellVCentered)->addText(
 
-$text2 =
+    "город " . $city,
 
-    "город " . $city;
-
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spaceBefore' => 150)
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHRight
 );
-
-$section = $phpWord->addSection(array('breakType' => 'continuous'));
 
 $text2 =
 
@@ -83,7 +83,7 @@ $section->addText(
 
 $text =
 
-    "Подпись доверителя " . $lastName . " " . $firstName . " " . $patronymic . " (ФИО) _________ удостоверяю.";
+    "Подпись доверителя " . $lastName . " " . $firstName . " " . $patronymic . " _________ удостоверяю.";
 
 $section->addText(
     htmlspecialchars($text),

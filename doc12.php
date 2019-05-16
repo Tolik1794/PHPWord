@@ -24,7 +24,7 @@ $sectionStyle = array(
 $section = $phpWord->addSection($sectionStyle);
 
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
-$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
+$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 700);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
@@ -32,19 +32,29 @@ $section->addTitle(
     1
 );
 
-$section = $phpWord->addSection(array('breakType' => 'continuous', 'colsSpace' => 3000, 'colsNum' => 2));
+$table = $section->addTable([$tableStyle]);
 
-$text2 =
+$cellHLeft = array('align' => 'left');
+$cellHRight = array('align' => 'right');
+$cellVCentered = array('valign' => 'center');
 
-    "г." . $city . "                                   " . $date . "г.";
+$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+$table = $section->addTable('Colspan Rowspan');
+$table->addRow(null, array('tblHeader' => true));
+$table->addCell(4250, $cellVCentered)->addText(
 
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spaceBefore' => 700)
+    "город " . $city,
+
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHLeft
 );
+$table->addCell(5000, $cellVCentered)->addText(
 
-$section = $phpWord->addSection(array('breakType' => 'continuous'));
+    $date . "г.",
+
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHRight
+);
 
 $text2 =
 

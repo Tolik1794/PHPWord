@@ -26,41 +26,41 @@ $section = $phpWord->addSection($sectionStyle);
 
 $dovNum = $_SESSION["DovNum"];
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
-$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
+$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'Доверенность'
-
-    , 1);
-
-$section = $phpWord->addSection(array('breakType' => 'continuous', 'colsSpace' => 3000, 'colsNum' => 1));
-
-$text2 = 
-
-$date . "г.";
-
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spaceBefore' => 700)
+    'Доверенность',
+    1
 );
 
-$text2 = 
+$table = $section->addTable([$tableStyle]);
 
-"г." . $city;
+$cellHLeft = array('align' => 'left');
+$cellHRight = array('align' => 'right');
+$cellVCentered = array('valign' => 'center');
 
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spaceBefore' => 150)
+$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+$table = $section->addTable('Colspan Rowspan');
+$table->addRow(null, array('tblHeader' => true));
+$table->addCell(4250, $cellVCentered)->addText(
+
+    $date . "г.",
+
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHLeft
+);
+$table->addCell(5000, $cellVCentered)->addText(
+
+    "город " . $city,
+
+    array('name' => 'TimesNewRoman', 'size' => 12,),
+    $cellHRight
 );
 
-$section = $phpWord->addSection(array('breakType' => 'continuous'));
+$text2 =
 
-$text2 = 
-
-$company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
+    $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
 действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " , паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
 выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " предсталять интересы  " . $companyInd . " в " . $FSS . " 
 и совершать следующие действия: " . $authority . ", а также расписываться и совершать все 
@@ -72,9 +72,9 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 150)
 );
 
-$text = 
+$text =
 
-"Доверенность выдана сроком на " . $term . ".";
+    "Доверенность выдана сроком на " . $term . ".";
 
 $section->addText(
     htmlspecialchars($text),
@@ -82,9 +82,9 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150)
 );
 
-$text = 
+$text =
 
-"Подпись доверителя " . $lastName . " " . $firstName . " " . $patronymic . " _________ удостоверяю.";
+    "Подпись доверителя " . $lastName . " " . $firstName . " " . $patronymic . " _________ удостоверяю.";
 
 $section->addText(
     htmlspecialchars($text),

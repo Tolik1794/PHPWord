@@ -35,7 +35,7 @@ $section->addTitle(
 
 $text2 =
 
-    "Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:  " . $address . " 
+    "Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу: " . $address . " 
 доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу: " . $addressInd . " 
 сдать в аренду жилое помещение по аресу: " . $kvaddress . ", определять срок аренды и размер арендной платы,  
 расписываться  за меня, получать деньги   и совершить все действия, связанные с выполнением этого поручения.";

@@ -43,8 +43,6 @@ $section->addTitle(
     2
 );
 
-$section = $phpWord->addSection(array('breakType' => 'continuous'));
-
 $text2 =
 
     "Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
