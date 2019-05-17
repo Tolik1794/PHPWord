@@ -14,7 +14,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom:20px;">
-        <a class="navbar-brand" href="/doc15.php">PHPWord</a>
+        <a class="navbar-brand" href="/">PHPWord</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
