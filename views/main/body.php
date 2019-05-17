@@ -44,4 +44,5 @@ require_once 'views/doc11.php';
 require_once 'views/doc12.php';
 require_once 'views/doc13.php';
 require_once 'views/doc14.php';
+require_once 'views/doc15.php';
 ?>

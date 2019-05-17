@@ -11,6 +11,8 @@ $address = $_COOKIE['Address'];
 $nationality = $_COOKIE['nationality'];
 $identityDoc = $_COOKIE['identityDoc'];
 $paramsIdentity = $_COOKIE['paramsIdentity'];
+$birthDate = $_COOKIE['birthDate'];
+$birthPlace = $_COOKIE['birthPlace'];
 
 // FIO and address Ind
 $firstNameInd = $_COOKIE['FirstNameInd'];
@@ -66,6 +68,41 @@ $carVIN = $_COOKIE['carVIN'];
 $carGosNum = $_COOKIE['carGosNum'];
 $carId = $_COOKIE['carId'];
 $carNum = $_COOKIE['carNum'];
+
+// Notarius
+$lastNameNotarius = $_COOKIE['lastNameNotarius'];
+$firstNameNotarius = $_COOKIE['firstNameNotarius'];
+$patronymicNotarius = $_COOKIE['patronymicNotarius'];
+$cityNotarius = $_COOKIE['cityNotarius'];
+$addressNotarius = $_COOKIE['addressNotarius'];
+$phoneNotarius = $_COOKIE['phoneNotarius'];
+$requisiteNotarius = $_COOKIE['requisiteNotarius'];
+
+$destination = $_COOKIE['destination'];
+$purpose = $_COOKIE['purpose'];
+$dateInWord = $_COOKIE['dateInWord'];
+$registryNum = $_COOKIE['registryNum'];
+$tariff = $_COOKIE['tariff'];
+
+// Child
+$lastNameCh = $_COOKIE['lastNameCh'];
+$firstNameCh = $_COOKIE['firstNameCh'];
+$patronymicCh = $_COOKIE['patronymicCh'];
+$birthDateCh = $_COOKIE['birthDateCh'];
+$birthCertificateNum = $_COOKIE['birthCertificateNum'];
+$birthCertificatePlace = $_COOKIE['birthCertificatePlace'];
+$birthCertificateDate = $_COOKIE['birthCertificateDate'];
+
+// Mother
+$lastNameMr = $_COOKIE['lastNameMr'];
+$firstNameMr = $_COOKIE['firstNameMr'];
+$patronymicMr = $_COOKIE['patronymicMr'];
+$birthDateMr = $_COOKIE['birthDateMr'];
+$birthPlaceMr = $_COOKIE['birthPlaceMr'];
+$pasportIdMr = $_COOKIE['pasportIdMr'];
+$pasportNumMr = $_COOKIE['pasportNumMr'];
+$pasportAddressMr = $_COOKIE['pasportAddressMr'];
+$AddressMr = $_COOKIE['AddressMr'];
 
 $moneyAddress = $_COOKIE['moneyAddress'];
 $moneyPlace = $_COOKIE['moneyPlace'];

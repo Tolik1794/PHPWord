@@ -44,6 +44,8 @@ setcookie("Address", $_POST['Address']);
 setcookie("nationality", $_POST['nationality']);
 setcookie("identityDoc", $_POST['identityDoc']);
 setcookie("paramsIdentity", $_POST['paramsIdentity']);
+setcookie("birthDate", $_POST['birthDate']);
+setcookie("birthPlace", $_POST['birthPlace']);
 
 // FIO and address Ind
 setcookie("LastNameInd", $_POST['LastNameInd']);
@@ -99,6 +101,41 @@ setcookie("carVIN", $_POST['carVIN']);
 setcookie("carGosNum", $_POST['carGosNum']);
 setcookie("carId", $_POST['carId']);
 setcookie("carNum", $_POST['carNum']);
+
+// Notarius
+setcookie("lastNameNotarius", $_POST['lastNameNotarius']);
+setcookie("firstNameNotarius", $_POST['firstNameNotarius']);
+setcookie("patronymicNotarius", $_POST['patronymicNotarius']);
+setcookie("cityNotarius", $_POST['cityNotarius']);
+setcookie("addressNotarius", $_POST['addressNotarius']);
+setcookie("phoneNotarius", $_POST['phoneNotarius']);
+setcookie("requisiteNotarius", $_POST['requisiteNotarius']);
+
+setcookie("destination", $_POST['destination']);
+setcookie("purpose", $_POST['purpose']);
+setcookie("dateInWord", $_POST['dateInWord']);
+setcookie("registryNum", $_POST['registryNum']);
+setcookie("tariff", $_POST['tariff']);
+
+// Child
+setcookie("lastNameCh", $_POST['lastNameCh']);
+setcookie("firstNameCh", $_POST['firstNameCh']);
+setcookie("patronymicCh", $_POST['patronymicCh']);
+setcookie("birthDateCh", $_POST['birthDateCh']);
+setcookie("birthCertificateNum", $_POST['birthCertificateNum']);
+setcookie("birthCertificatePlace", $_POST['birthCertificatePlace']);
+setcookie("birthCertificateDate", $_POST['birthCertificateDate']);
+
+// Mother
+setcookie("lastNameMr", $_POST['lastNameMr']);
+setcookie("firstNameMr", $_POST['firstNameMr']);
+setcookie("patronymicMr", $_POST['patronymicMr']);
+setcookie("birthDateMr", $_POST['birthDateMr']);
+setcookie("birthPlaceMr", $_POST['birthPlaceMr']);
+setcookie("pasportIdMr", $_POST['pasportIdMr']);
+setcookie("pasportNumMr", $_POST['pasportNumMr']);
+setcookie("pasportAddressMr", $_POST['pasportAddressMr']);
+setcookie("AddressMr", $_POST['AddressMr']);
 
 setcookie("moneyAddress", $_POST['moneyAddress']);
 setcookie("moneyPlace", $_POST['moneyPlace']);

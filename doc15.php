@@ -33,21 +33,25 @@ $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
 $table = $section->addTable('Colspan Rowspan');
 $table->addRow(null, array('tblHeader' => true));
 $table->addCell(4250, $cellVCentered)->addText(
-    'Нотариус г. ____________  ФИО нотариуса Реквизиты, адрес, телефон ',
+
+    'Нотариус г. ' . $cityNotarius . '
+    ' . $lastNameNotarius . ' ' . $firstNameNotarius . ' ' . $patronymicNotarius . ' ' .
+        $requisiteNotarius . ' ' . $addressNotarius . ' ' . $phoneNotarius,
+
     array('name' => 'TimesNewRoman', 'size' => 12,),
     $cellHCentered
 );
 $table->addCell(5000, $cellVCentered)->addText(
-    'В КОМПЕТЕНТНЫЕ ОРГАНЫ РФ,  
-    указать страну назначения или
-    СТРАН ШЕНГЕНСКОГО СОГЛАШЕНИЯ
-    от гражданина РФ: ФИО, дата рождения, место рождения, паспортные данные
-    зарегистрированного по адресу: место регистрации',
+
+    ' В КОМПЕТЕНТНЫЕ ОРГАНЫ РФ,  
+    ' . $destination . '
+    от гражданина РФ: ' . $lastName . ' ' . $firstName . ' ' . $patronymic . ', ' . $birthDate . ', ' . $birthPlace . ', паспорт ' . $pasportId . ' N ' . $pasportNum . ' выдан '.$pasportAddress.',
+    зарегистрированного по адресу:  ' . $address,
+
     array('name' => 'TimesNewRoman', 'size' => 12,),
     $cellHCentered
 );
 
-$dovNum = $_SESSION["DovNum"];
 $fontStyle = array('name' => 'Times New Roman', 'size' => 12, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 700);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
@@ -60,11 +64,11 @@ $section->addTitle(
 
 $text2 =
 
-    "Настоящим даю свое согласие на выезд моей несовершеннолетнего ребенка – ФИО ребенка,
-     дата  рождения (Свидетельство о рождении: серия №, кем выдано, дата выдачи), страна 
-     назначения, цель поездки, с «__» ________ 20__ года по «__» ________ 20__ года, в 
-     сопровождении её матери – ФИО матери, дата рождения, паспортные данные, зарегистрированной 
-     по адресу: место регистрации.";
+    "Настоящим даю свое согласие на выезд моей несовершеннолетнего ребенка – " . $lastNameCh . " " . $firstNameCh . " " . $patronymicCh . ",
+     " . $birthDateCh . " (Свидетельство о рождении: " . $birthCertificateNum . ", " . $birthCertificatePlace . ", " . $birthCertificateDate . "), '.$destination, 
+     " . $purpose . ", с " . $dateStart . " года по " . $dateFinish . " года, в 
+     сопровождении её матери – " . $lastNameMr . " " . $firstNameMr . " " . $patronymicMr . ", " . $birthDateMr . ", " . $birthPlaceMr . ", паспорт " . $pasportIdMr . " N " . $pasportNumMr . " выдан ".$pasportAddressMr.", зарегистрированной 
+     по адресу: " . $AddressMr . ".";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -87,7 +91,7 @@ $section->addText(
 
 $text2 =
 
-    "Удочерение или задержка ФИО ребенка  в стране пребывания не предусматривается.";
+    "Удочерение или задержка " . $lastNameCh . " " . $firstNameCh . " " . $patronymicCh . "  в " . $destination . " не предусматривается.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -97,7 +101,7 @@ $section->addText(
 
 $text2 =
 
-    "Город _____________. Российская Федерация.";
+    "Город " . $city . ". Российская Федерация.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -107,7 +111,7 @@ $section->addText(
 
 $text2 =
 
-    "Дата оформления согласия прописью.";
+    $dateInWord;
 
 $section->addText(
     htmlspecialchars($text2),
@@ -127,7 +131,7 @@ $section->addText(
 
 $text2 =
 
-    "Город _____________. Российская Федерация.";
+    "Город " . $city . ". Российская Федерация.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -137,7 +141,7 @@ $section->addText(
 
 $text2 =
 
-    "Дата оформления согласия прописью.";
+    $dateInWord;
 
 $section->addText(
     htmlspecialchars($text2),
@@ -147,7 +151,7 @@ $section->addText(
 
 $text2 =
 
-    "Настоящее согласие удостоверено мной ФИО нотариуса – нотариусом города _______________.";
+    'Настоящее согласие удостоверено мной ' . $lastNameNotarius . ' ' . $firstNameNotarius . ' ' . $patronymicNotarius . ' – нотариусом города ' . $cityNotarius . '.';
 
 $section->addText(
     htmlspecialchars($text2),
@@ -157,7 +161,7 @@ $section->addText(
 
 $text2 =
 
-    "Согласие подписано гражданином ФИО отца собственноручно в моем присутствии.";
+    'Согласие подписано гражданином ' . $lastName . ' ' . $firstName . ' ' . $patronymic . ' отца собственноручно в моем присутствии.';
 
 $section->addText(
     htmlspecialchars($text2),
@@ -167,7 +171,7 @@ $section->addText(
 
 $text2 =
 
-    "Личность его установлена. Дееспособность проверена. ";
+    "Личность его установлена. Дееспособность проверена.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -177,7 +181,7 @@ $section->addText(
 
 $text2 =
 
-    "Зарегистрировано в реестре за № ";
+    "Зарегистрировано в реестре за №" . $registryNum;
 
 $section->addText(
     htmlspecialchars($text2),
@@ -187,7 +191,7 @@ $section->addText(
 
 $text2 =
 
-    "Взыскано по тарифу: ___ руб.";
+    "Взыскано по тарифу: " . $tariff . " руб.";
 
 $section->addText(
     htmlspecialchars($text2),
