@@ -7,9 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     <title>Document</title>
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -21,23 +18,23 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
 
                 <?php if (!Session::has('login')) { ?>
 
                     <li class="nav-item active">
-                        <a class="nav-link" href="/public/register.php">Register <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/public/register.php">Регистрация <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/public/login.php">Login <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/public/login.php">Авторизация <span class="sr-only">(current)</span></a>
                     </li>
                 <?php } ?>
 
                 <?php if (Session::has('login')) { ?>
 
                     <li class="nav-item active">
-                        <a class="nav-link" href="/public/logout.php">Logout <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/public/logout.php">Выйти (<?= Session::get('login') ?>) <span class="sr-only">(current)</span></a>
                     </li>
 
                 <?php } ?>
