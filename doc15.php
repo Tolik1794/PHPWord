@@ -1,6 +1,6 @@
 <?php
 
-// доверенность в фсс
+// доверенность на выезд ребенка
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -211,7 +211,7 @@ $section->addText(
 
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность в фсс.docx"');
+header('Content-Disposition: attachment; filename="доверенность на выезд ребенка.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

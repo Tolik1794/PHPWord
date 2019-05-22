@@ -1,5 +1,10 @@
 <!-- // доверенность в фсс -->
 
+<?php
+
+// require_once '../Session.php';
+?>
+
 <div class="container">
     <div class="col-md-12">
         <form method="post" id="2" class="docform" style="display: none;">

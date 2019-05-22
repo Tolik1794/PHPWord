@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     <title>Document</title>
     <style>
-        
+
     </style>
 </head>
 
@@ -23,6 +23,25 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <?php if (!Session::has('login')) { ?>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/public/register.php">Register <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/public/login.php">Login <span class="sr-only">(current)</span></a>
+                    </li>
+                <?php } ?>
+
+                <?php if (Session::has('login')) { ?>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/public/logout.php">Logout <span class="sr-only">(current)</span></a>
+                    </li>
+
+                <?php } ?>
+
             </ul>
         </div>
     </nav>

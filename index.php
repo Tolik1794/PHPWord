@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once 'Session.php';
 
 
 if (isset($_POST['doc1'])) {

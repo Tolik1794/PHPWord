@@ -1,6 +1,8 @@
 <?php
 
 // доверенность на оренду квартиры
+session_start();
+require_once '../Session.php';
 
 require_once 'main/header.php';
 require_once '../variables.php';
