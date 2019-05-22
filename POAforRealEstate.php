@@ -1,5 +1,6 @@
 <?php
 
+// POAforRealEstate
 // доверенность на оренду квартиры
 
 use PhpOffice\PhpWord\IOFactory;

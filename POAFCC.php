@@ -1,6 +1,7 @@
 <?php
 
-// на получение ТМЦ
+// POAFCC
+// доверенность в фсс
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -61,9 +62,10 @@ $table->addCell(5000, $cellVCentered)->addText(
 $text2 =
 
     $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
-действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
-выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " получить товарно-материальные ценности в " . $companyName . " " . $companyNameAddress . " в составе:
-" . $TMC . ", подписать накладные на ТМЦ и совершать все остальные действия, связанные с выполнением этого поручения.";
+действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " , паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
+выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " предсталять интересы  " . $companyInd . " в " . $FSS . " 
+и совершать следующие действия: " . $authority . ", а также расписываться и совершать все 
+остальные действия, связанные с выполнением этого поручения.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -92,7 +94,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="на получение ТМЦ.docx"');
+header('Content-Disposition: attachment; filename="доверенность в фсс.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

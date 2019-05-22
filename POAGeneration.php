@@ -1,5 +1,6 @@
 <?php
 
+// POAGeneration
 // генеральная доверенность
 
 use PhpOffice\PhpWord\IOFactory;

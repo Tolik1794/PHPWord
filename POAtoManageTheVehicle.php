@@ -1,5 +1,6 @@
 <?php
 
+// POAtoManageTheVehicle
 // доверенность на управление ТС
 
 use PhpOffice\PhpWord\IOFactory;

@@ -1,6 +1,7 @@
 <?php
 
-//доверенность на получение денег
+// POAtoReciveDocument
+//доверенность на получение документов
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -30,9 +31,8 @@ $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'Доверенность'
-
-    , 1
+    'Доверенность',
+    1
 );
 
 $fontStyle = array('name' => 'Times New Roman', 'size' => 14, 'color' => '000000');
@@ -40,20 +40,17 @@ $paragrafStyle = array('align' => 'center');
 $phpWord->addTitleStyle(2, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'на получение денег'
-
-    , 2
+    'на получение документов',
+    2
 );
 
-$text2 = 
+$text2 =
 
-"Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии "
-    . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
-" . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd .
-    ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
-" . $addressInd . " получить в " . $moneyPlace . ", по адресу:
-" . $moneyAddress . " причитающиеся мне деньги в сумме " . $moneySum . " руб. за " . $moneyTo . ",
-расписаться за меня и совершить все действия, связанные с выполнением этого поручения.";
+    "Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
+" . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
+" . $addressInd . " получить в " . $place . " документы " . $doc . ", расписываться за меня и совершить все 
+действия, связанные с выполнением этого поручения.";
+
 
 $section->addText(
     htmlspecialchars($text2),
@@ -61,9 +58,19 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 250)
 );
 
-$text = 
+$text =
 
-"Дата          Подпись";
+    "Доверенность выдана сроком на " . $term . ".";
+
+$section->addText(
+    htmlspecialchars($text),
+    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
+    array('align' => 'both', 'spacing' => 150)
+);
+
+$text =
+
+    "Дата          Подпись";
 
 $section->addText(
     htmlspecialchars($text),
@@ -71,9 +78,9 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 300)
 );
 
-$text = 
+$text =
 
-"Подпись доверителя удостоверяю.";
+    "Подпись  доверителя удостоверяю.";
 
 $section->addText(
     htmlspecialchars($text),
@@ -82,7 +89,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность на получение денег.docx"');
+header('Content-Disposition: attachment; filename="доверенность на получение документов.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

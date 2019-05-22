@@ -1,6 +1,7 @@
 <?php
 
-// доверенность в налоговую
+// POAtoReciveTMC
+// на получение ТМЦ
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -14,7 +15,6 @@ $phpWord = new PhpWord();
 
 $phpWord->setDefaultFontName('Times New Roman');
 $phpWord->setDefaultFontSize(14);
-
 $sectionStyle = array(
     'orientation' => 'portrait',
     'marginTop' => 1000,
@@ -25,13 +25,13 @@ $sectionStyle = array(
 
 $section = $phpWord->addSection($sectionStyle);
 
+$dovNum = $_SESSION["DovNum"];
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
     'Доверенность',
-
     1
 );
 
@@ -63,9 +63,8 @@ $text2 =
 
     $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
 действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
-выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " предсталять интересы  " . $companyInd . " в " . $nalogova . "
-и совершать следующие действия: " . $authority . ", а также расписываться и совершать все 
-остальные действия, связанные с выполнением этого поручения.";
+выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " получить товарно-материальные ценности в " . $companyName . " " . $companyNameAddress . " в составе:
+" . $TMC . ", подписать накладные на ТМЦ и совершать все остальные действия, связанные с выполнением этого поручения.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -94,7 +93,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность в налоговую.docx"');
+header('Content-Disposition: attachment; filename="на получение ТМЦ.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

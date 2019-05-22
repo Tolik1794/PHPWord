@@ -1,5 +1,6 @@
 <?php
 
+// POAsignDocuments
 //доверенность на подписание документов
 
 use PhpOffice\PhpWord\IOFactory;

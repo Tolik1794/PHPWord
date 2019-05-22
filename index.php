@@ -1,7 +1,7 @@
 <?php
+
 session_start();
 require_once 'Session.php';
-
 
 if (isset($_POST['doc1'])) {
     header("Location:/views/doc1view.php");
@@ -34,7 +34,6 @@ if (isset($_POST['doc1'])) {
 } elseif (isset($_POST['doc15'])) {
     header("Location:/views/doc15view.php");
 }
-
 
 setcookie("City", $_POST['City']);
 

@@ -1,6 +1,10 @@
 <?php
 
+// POAGeneration
+// генеральная доверенность
+
 session_start();
+
 require_once '../Session.php';
 require_once 'main/header.php';
 require_once '../variables.php';
@@ -21,10 +25,10 @@ $textDoc1 = "Я, " . $lastName . " " . $firstName . " " . $patronymic . " (ФИ�
 
     <div class="form-row">
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/doc1.php" role="button">Download</a>
+            <a class="btn btn-secondary btn-lg active" href="/POAGeneration.php" role="button">Сохранить</a>
         </div>
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/?id=1" role="button" style="margin-left:20px;">Edit</a>
+            <a class="btn btn-secondary btn-lg active" href="/?id=1" role="button" style="margin-left:20px;">Изменить</a>
         </div>
     </div>
     

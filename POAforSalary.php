@@ -1,6 +1,7 @@
 <?php
 
-//доверенность на получение почты
+// POAforSalary
+//доверенность на получение зароботной платы
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
@@ -39,30 +40,21 @@ $paragrafStyle = array('align' => 'center');
 $phpWord->addTitleStyle(2, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'на получение пенсии',
+    'на получение заработной платы',
     2
 );
 
 $text2 =
 
-"Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
-" . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
-" . $addressInd . " получить ".$company.", отправленную на мое имя почтовую корреспонденцию, расписываться  за меня и совершить все действия, связанные с выполнением этого поручения.";
+    "Я, " . $lastName . " " . $firstName . " " . $patronymic . " (ФИО), паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
+" . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " (ФИО), паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
+" . $addressInd . " получить в кассе ".$company." (наименование предприятия), находящегося по адресу: ".$companyAddress." причитающуюся мне заработную плату за ".$dateStart." - ".$dateFinish." (указать период), 
+расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.";
 
 $section->addText(
     htmlspecialchars($text2),
     array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 250)
-);
-
-$text =
-
-    "Доверенность выдана сроком на " . $term . ".";
-
-$section->addText(
-    htmlspecialchars($text),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spacing' => 150)
 );
 
 
@@ -87,7 +79,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность на получение почты.docx"');
+header('Content-Disposition: attachment; filename="доверенность на получение зароботной платы.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

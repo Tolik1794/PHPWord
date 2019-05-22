@@ -1,6 +1,8 @@
 <?php
 
+// POAtoReciveTMC
 // на получение ТМЦ
+
 session_start();
 require_once '../Session.php';
 
@@ -26,10 +28,10 @@ $text2 =
 
     <div class="form-row">
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/doc11.php" role="button">Download</a>
+            <a class="btn btn-secondary btn-lg active" href="/POAtoReciveTMC.php" role="button">Сохранить</a>
         </div>
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/?id=11" role="button" style="margin-left:20px;">Edit</a>
+            <a class="btn btn-secondary btn-lg active" href="/?id=11" role="button" style="margin-left:20px;">Изменить</a>
         </div>
     </div>
 

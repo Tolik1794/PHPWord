@@ -1,5 +1,6 @@
 <?php
 
+// POAforPension
 //доверенность на получение пенсии
 
 use PhpOffice\PhpWord\IOFactory;

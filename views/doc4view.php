@@ -1,6 +1,8 @@
 <?php
 
+// POAforRealEstate
 // доверенность на оренду квартиры
+
 session_start();
 require_once '../Session.php';
 
@@ -23,10 +25,10 @@ $text =
 
     <div class="form-row">
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/doc4.php" role="button">Download</a>
+            <a class="btn btn-secondary btn-lg active" href="/POAforRealEstate.php" role="button">Сохранить</a>
         </div>
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/?id=4" role="button" style="margin-left:20px;">Edit</a>
+            <a class="btn btn-secondary btn-lg active" href="/?id=4" role="button" style="margin-left:20px;">Изменить</a>
         </div>
     </div>
 

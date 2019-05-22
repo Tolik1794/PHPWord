@@ -1,6 +1,8 @@
 <?php
 
+// POAtoReciveMail
 // доверенность на получение почты
+
 session_start();
 require_once '../Session.php';
 
@@ -22,10 +24,10 @@ $text =
 
     <div class="form-row">
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/doc10.php" role="button">Download</a>
+            <a class="btn btn-secondary btn-lg active" href="/POAtoReciveMail.php" role="button">Сохранить</a>
         </div>
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/?id=10" role="button" style="margin-left:20px;">Edit</a>
+            <a class="btn btn-secondary btn-lg active" href="/?id=10" role="button" style="margin-left:20px;">Изменить</a>
         </div>
     </div>
 

@@ -1,7 +1,8 @@
 <?php
 
-
+// POAtoManageTheVehicle
 session_start();
+
 require_once '../Session.php';
 
 require_once 'main/header.php';
@@ -26,10 +27,10 @@ N ' . $carBody . ' шасси N ' . $carСhassis . ' VIN ' . $carVIN . ' гос�
 
     <div class="form-row">
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/doc14.php" role="button">Download</a>
+            <a class="btn btn-secondary btn-lg active" href="/POAtoManageTheVehicle.php" role="button">Сохранить</a>
         </div>
         <div>
-            <a class="btn btn-secondary btn-lg active" href="/?id=14" role="button" style="margin-left:20px;">Edit</a>
+            <a class="btn btn-secondary btn-lg active" href="/?id=14" role="button" style="margin-left:20px;">Изменить</a>
         </div>
     </div>
 

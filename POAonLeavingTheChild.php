@@ -1,5 +1,6 @@
 <?php
 
+// POAonLeavingTheChild
 // доверенность на выезд ребенка
 
 use PhpOffice\PhpWord\IOFactory;
