@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <title>Document</title>
+    <title>PHPWord</title>
 </head>
 
 <body>
@@ -20,7 +20,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav justify-content-end">
                 <?php if (!Session::has('login')) { ?>
 
                     <li class="nav-item active">
@@ -38,7 +39,7 @@
                     </li>
 
                 <?php } ?>
-
             </ul>
+
         </div>
     </nav>
