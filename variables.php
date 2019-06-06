@@ -1,7 +1,7 @@
 <?php
 
 $city = $_COOKIE['City'];
-$date = date('d.m.Y');
+$date = date('Y-m-d');
 
 // FIO and address
 $firstName = $_COOKIE['FirstName'];

@@ -1,12 +1,23 @@
 <?php
 
-// POAFCC
+$docName = POAFCC;
 // доверенность в фсс
 
 session_start();
+
+require_once('../Dbsettings.php');
+require_once('../DB.php');
+// require_once('../Session.php');
+
 require_once '../Session.php';
 require_once 'main/header.php';
 require_once '../variables.php';
+
+$db = new DB($host, $user, $password, $db_name);
+
+$doc = $db->query("SELECT * FROM `doc`");
+
+print_r($doc);
 
 $text =
 

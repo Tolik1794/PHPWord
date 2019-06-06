@@ -35,6 +35,9 @@ if (isset($_POST['doc1'])) {
     header("Location:/views/doc15view.php");
 }
 
+// header("Location:/views/log.php");
+
+
 setcookie("City", $_POST['City']);
 
 // FIO and address

@@ -1,20 +1,13 @@
 <?php
 
-$docName = POAFCC;
-// доверенность в фсс
+// POAsignDocuments
+//доверенность на подписание документов
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require_once('Dbsettings.php');
-require_once('DB.php');
-
 require 'vendor/autoload.php';
 require_once 'variables.php';
-
-$db = new DB($host, $user, $password, $db_name);
-
-$db->query("INSERT INTO `doc` (date, city, company, lastName, firstName, patronymic, lastNameInd, firstNameInd, patronymicInd, companyInd, docName) VALUES ('{$date}', '{$city}', '{$company}', '{$lastName}','{$firstName}', '{$patronymic}', '{$lastNameInd}','{$firstNameInd}', '{$patronymicInd}', '{$companyInd}','{$docName}')");
 
 
 
@@ -22,23 +15,24 @@ $phpWord = new PhpWord();
 
 $phpWord->setDefaultFontName('Times New Roman');
 $phpWord->setDefaultFontSize(14);
+
 $sectionStyle = array(
     'orientation' => 'portrait',
     'marginTop' => 1000,
     'marginLeft' => 1800,
     'marginRight' => 1000,
     'colsNum' => 1,
-);
 
+);
 $section = $phpWord->addSection($sectionStyle);
 
-$dovNum = $_SESSION["DovNum"];
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
     'Доверенность',
+
     1
 );
 
@@ -69,10 +63,10 @@ $table->addCell(5000, $cellVCentered)->addText(
 $text2 =
 
     $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
-действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " , паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
-выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " предсталять интересы  " . $companyInd . " в " . $FSS . " 
-и совершать следующие действия: " . $authority . ", а также расписываться и совершать все 
-остальные действия, связанные с выполнением этого поручения.";
+действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
+выдан " . $pasportAddressInd . ", проживающему по адресу: " . $addressInd . " предсталять интересы " . $companyInd . " следующие документы  
+" . $doc . " в " . $docCompany . " и совершать все остальные действия, 
+связанные с выполнением этого поручения.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -101,7 +95,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность в фсс.docx"');
+header('Content-Disposition: attachment; filename="доверенность на подписание документов.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');

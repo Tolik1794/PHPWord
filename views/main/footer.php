@@ -27,6 +27,15 @@
 
     });
 
+    $('#SelectLog').on('change', function() {
+        var selected_form = $(this).find('option:selected').val();
+
+        // $('.date').hide();
+        $('#' + selected_form).show();
+        $('td, #' + selected_form).show();
+
+    });
+
     var selectetForm = $('#inlineFormCustomSelect').find('option:selected').val();
     $('#'+selectetForm).show();
 

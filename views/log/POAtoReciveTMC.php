@@ -1,20 +1,13 @@
 <?php
 
-$docName = POAFCC;
-// доверенность в фсс
+// POAtoReciveTMC
+// на получение ТМЦ
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require_once('Dbsettings.php');
-require_once('DB.php');
-
 require 'vendor/autoload.php';
 require_once 'variables.php';
-
-$db = new DB($host, $user, $password, $db_name);
-
-$db->query("INSERT INTO `doc` (date, city, company, lastName, firstName, patronymic, lastNameInd, firstNameInd, patronymicInd, companyInd, docName) VALUES ('{$date}', '{$city}', '{$company}', '{$lastName}','{$firstName}', '{$patronymic}', '{$lastNameInd}','{$firstNameInd}', '{$patronymicInd}', '{$companyInd}','{$docName}')");
 
 
 
@@ -69,10 +62,9 @@ $table->addCell(5000, $cellVCentered)->addText(
 $text2 =
 
     $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
-действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " , паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
-выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " предсталять интересы  " . $companyInd . " в " . $FSS . " 
-и совершать следующие действия: " . $authority . ", а также расписываться и совершать все 
-остальные действия, связанные с выполнением этого поручения.";
+действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
+выдан " . $pasportAddressInd . ", проживающему по адресу:  " . $addressInd . " получить товарно-материальные ценности в " . $companyName . " " . $companyNameAddress . " в составе:
+" . $TMC . ", подписать накладные на ТМЦ и совершать все остальные действия, связанные с выполнением этого поручения.";
 
 $section->addText(
     htmlspecialchars($text2),
@@ -101,7 +93,7 @@ $section->addText(
 );
 
 header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность в фсс.docx"');
+header('Content-Disposition: attachment; filename="на получение ТМЦ.docx"');
 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 header('Content-Transfer-Encoding: binary');
 header('Cache-Control: must-revalidate, post-check=1, pre-check=0');
