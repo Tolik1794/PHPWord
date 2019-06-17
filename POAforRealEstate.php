@@ -1,14 +1,48 @@
 <?php
+session_start();
 
 // POAforRealEstate
 // доверенность на оренду квартиры
+
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
 require 'vendor/autoload.php';
-require_once 'variables.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
 
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+
+    $db->query("INSERT INTO `POAforRealEstate` (user_id, lastName, firstName, patronymic, pasportId, pasportNum, pasportAddress, address, lastNameInd, firstNameInd, patronymicInd, pasportIdInd, pasportNumInd, pasportAddressInd, kvaddress, term) VALUES ('{$user_id}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$pasportId}', '{$pasportNum}', '{$pasportAddress}', '{$address}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$pasportAddressInd}', '{$kvaddress}', '{$term}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM `POAforRealEstate` WHERE id = '$id'");
+
+    $user_id = $query[0]['user_id'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $pasportId = $query[0]['pasportId'];
+    $pasportNum = $query[0]['pasportNum'];
+    $pasportAddress = $query[0]['pasportAddress'];
+    $address = $query[0]['address'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $kvaddress = $query[0]['kvaddress'];
+    $term = $query[0]['term'];
+}
 
 
 $phpWord = new PhpWord();

@@ -16,29 +16,48 @@ if (!Session::has('login')) {
     $db = new DB($host, $user, $password, $db_name);
 
     ?>
-    <div class="container">
-        <select class="custom-select mr-sm-2" id="SelectLog">
-            <option value="defauld">Select doc</option>
-            <option value="1" <?= $_GET['id'] == 1 ? 'selected' : '' ?>>Генерация доверенность</option>
-            <option value="2" <?= $_GET['id'] == 2 ? 'selected' : '' ?>>В ФСС</option>
-            <option value="3" <?= $_GET['id'] == 3 ? 'selected' : '' ?>>В налоговую</option>
-            <option value="4" <?= $_GET['id'] == 4 ? 'selected' : '' ?>>На распоряжение объектом недвижимости</option>
-            <option value="5" <?= $_GET['id'] == 5 ? 'selected' : '' ?>>На подписание документов</option>
-            <option value="6" <?= $_GET['id'] == 6 ? 'selected' : '' ?>>На получение денег</option>
-            <option value="7" <?= $_GET['id'] == 7 ? 'selected' : '' ?>>На получение документов</option>
-            <option value="8" <?= $_GET['id'] == 8 ? 'selected' : '' ?> class="ur">На получение заработной платы</option>
-            <option value="9" <?= $_GET['id'] == 9 ? 'selected' : '' ?> class="ur">На получение пенсии</option>
-            <option value="10" <?= $_GET['id'] == 10 ? 'selected' : '' ?>>На получение почты</option>
-            <option value="11" <?= $_GET['id'] == 11 ? 'selected' : '' ?>>На получение ТМЦ</option>
-            <option value="12" <?= $_GET['id'] == 12 ? 'selected' : '' ?>>На представление интересов</option>
-            <option value="13" <?= $_GET['id'] == 13 ? 'selected' : '' ?> class="fiz" style="display:none">От юридического лица</option>
-            <option value="14" <?= $_GET['id'] == 14 ? 'selected' : '' ?>>На управление ТС</option>
-            <option value="15" <?= $_GET['id'] == 15 ? 'selected' : '' ?> class="ur">На выезд ребенка</option>
-        </select>
+    <div id="2" style="display:block;">
+        <h1 style="margin: 0 auto;">My Document</h1>
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Doc Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Patronymic</th>
+                    <th scope="col">Last Name 3rd</th>
+                    <th scope="col">First Name 3rd</th>
+                    <th scope="col">Patronymic 3rd</th>
+                    <th scope="col">Company 3rd</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">test</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include_once('POAGeneration.php');
+                include_once('POAFCC.php');
+                include_once('POAofTax.php');
+                include_once('POAforRealEstate.php');
+                include_once('POAsignDocuments.php');
+                include_once('POAtoReciveMoney.php');
+                include_once('POAtoReciveDocument.php');
+                include_once('POAforSalary.php');
+                include_once('POAforPension.php');
+                include_once('POAtoReciveMail.php');
+                include_once('POAtoReciveTMC.php');
+                include_once('RepresentationAttorney.php');
+                include_once('POAfromLegalEntity.php');
+                include_once('POAtoManageTheVehicle.php');
+                include_once('POAonLeavingTheChild.php');
+                ?>
+            </tbody>
+        </table>
     </div>
-    <?php
-    include_once('POAFCC.php');
-}
 
+<?php }
 require_once '../main/footer.php';
 ?>

@@ -1,21 +1,87 @@
 <?php
-
-$docName = POAFCC;
+session_start();
 // доверенность в фсс
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
+$var = basename(__FILE__, ".php");
+
 require_once('Dbsettings.php');
 require_once('DB.php');
+require_once('Session.php');
 
 require 'vendor/autoload.php';
-require_once 'variables.php';
-
 $db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
 
-$db->query("INSERT INTO `doc` (date, city, company, lastName, firstName, patronymic, lastNameInd, firstNameInd, patronymicInd, companyInd, docName) VALUES ('{$date}', '{$city}', '{$company}', '{$lastName}','{$firstName}', '{$patronymic}', '{$lastNameInd}','{$firstNameInd}', '{$patronymicInd}', '{$companyInd}','{$docName}')");
+if (!$_POST['download']) {
 
+    require_once 'variables.php';
+
+
+    // $query = $db->query("SELECT * FROM $var");
+    // $arr = array_keys($query[0]);
+    // $count = count($arr);
+    
+    // $i = 0;
+    // $to = [];
+    // foreach (array_slice($arr, 1) as $value) {
+    //     $i++;
+    //     array_push($to ,"'{\$" . $value . "}'");
+
+    // }
+    // $h =0;
+    // $in = [];
+    // foreach (array_slice($arr, 1) as $value) {
+    //     $h++;
+    //     array_push($in ,$value);
+    // }
+
+//    echo $strIn = implode(', ', $in).'<br>';
+//    echo $strTo = implode(', ', $to);
+//    die;
+ 
+
+    $db->query("INSERT INTO $var (user_id, company, lastName, firstName, patronymic, position, lastNameInd, firstNameInd, patronymicInd, companyInd, addressInd, pasportAddressInd, pasportIdInd, pasportNumInd, FSS, city, date, term) VALUES ('{$user_id}', '{$company}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$position}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$companyInd}', '{$addressInd}', '{$pasportAddressInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$FSS}', '{$city}', '{$date}', '{$term}')");
+
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+    
+    // $arr = array_keys($query[0]);
+    // $count = count($arr);
+    // $i = 0;
+    // $test = [];
+    // foreach (array_slice($arr, 1) as $value) {
+    //     $i++;
+        
+    //         echo "\$".$value." = \$query[0]['" . $value . "'];".'<br>';
+        
+    // }
+    // die;
+
+    $date = $query[0]['date'];
+    $city = $query[0]['city'];
+    $user_id = $query[0]['user_id'];
+    $company = $query[0]['company'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $position = $query[0]['position'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $companyInd = $query[0]['companyInd'];
+    $addressInd = $query[0]['addressInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $term = $query[0]['term'];
+    $FSS = $query[0]['FSS'];
+}
 
 
 $phpWord = new PhpWord();

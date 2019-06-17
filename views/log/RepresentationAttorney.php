@@ -1,9 +1,9 @@
 <?php
 
-// POAGeneration
-// генеральная доверенность
+// RepresentationAttorney
+// доверенность на представление интересов
 
-$var = 'POAGeneration';
+$var = basename(__FILE__, ".php");
 
 $user_login = Session::get('login');
 $users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");

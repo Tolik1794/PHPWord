@@ -15,9 +15,9 @@ require_once '../variables.php';
 
 $db = new DB($host, $user, $password, $db_name);
 
-$doc = $db->query("SELECT * FROM `doc`");
+// $doc = $db->query("SELECT * FROM `doc`");
 
-print_r($doc);
+// print_r($doc);
 
 $text =
 

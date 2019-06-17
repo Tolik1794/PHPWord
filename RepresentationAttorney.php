@@ -6,9 +6,41 @@
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require 'vendor/autoload.php';
-require_once 'variables.php';
+$var = basename(__FILE__, ".php");
 
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
+
+require 'vendor/autoload.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+
+
+    $db->query("INSERT INTO $var (user_id, city, date, lastName, firstName, patronymic, address, lastNameInd, firstNameInd, patronymicInd, addressInd, dateTo) VALUES ('{$user_id}', '{$city}', '{$date}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$address}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$addressInd}', '{$dateTo}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+
+    $user_id = $query[0]['user_id'];
+    $city = $query[0]['city'];
+    $date = $query[0]['date'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $address = $query[0]['address'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $addressInd = $query[0]['addressInd'];
+    $dateTo = $query[0]['dateTo'];
+}
 
 $phpWord = new PhpWord();
 
@@ -23,7 +55,24 @@ $sectionStyle = array(
     'colsNum' => 1,
 );
 $section = $phpWord->addSection($sectionStyle);
-
+/*
+CREATE TABLE `RepresentationAttorney` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `city` varchar(55) NOT NULL,
+  `date` varchar(55) NOT NULL,
+  `lastName` varchar(55) NOT NULL,
+  `firstName` varchar(55) NOT NULL,
+  `patronymic` varchar(55) NOT NULL,
+  `address` varchar(55) NOT NULL,
+  `lastNameInd` varchar(55) NOT NULL,
+  `firstNameInd` varchar(55) NOT NULL,
+  `patronymicInd` varchar(55) NOT NULL,
+  `addressInd` varchar(55) NOT NULL,
+  `dateTo` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 700);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
@@ -88,7 +137,7 @@ $section->addText(
 
 $text =
 
-    "Настоящая доверенность действительна до ".$dateTo." г. ";
+    "Настоящая доверенность действительна до " . $dateTo . " г. ";
 
 $section->addText(
     htmlspecialchars($text),

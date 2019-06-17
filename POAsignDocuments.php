@@ -6,9 +6,70 @@
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require 'vendor/autoload.php';
-require_once 'variables.php';
+$var = basename(__FILE__, ".php");
 
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
+
+require 'vendor/autoload.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+
+
+    $query = $db->query("SELECT * FROM $var");
+    $arr = array_keys($query[0]);
+    $count = count($arr);
+
+    $i = 0;
+    $to = [];
+    foreach (array_slice($arr, 1) as $value) {
+        $i++;
+        array_push($to, "'{\$" . $value . "}'");
+    }
+    $h = 0;
+    $in = [];
+    foreach (array_slice($arr, 1) as $value) {
+        $h++;
+        array_push($in, $value);
+    }
+
+    echo $strIn = implode(', ', $in) . '<br>';
+    echo $strTo = implode(', ', $to);
+    die;
+
+
+    $db->query("INSERT INTO $var (user_id, date, city, company, lastName, firstName, patronymic, position, lastNameInd, firstNameInd, patronymicInd, pasportIdInd, pasportNumInd, pasportAddressInd, addressInd, companyInd, doc, docCompany, term) VALUES ('{$user_id}', '{$date}', '{$city}', '{$company}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$position}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$pasportAddressInd}', '{$addressInd}', '{$companyInd}', '{$doc}', '{$docCompany}', '{$term}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+
+    $user_id = $query[0]['user_id'];
+    $date = $query[0]['date'];
+    $city = $query[0]['city'];
+    $company = $query[0]['company'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $position = $query[0]['position'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $addressInd = $query[0]['addressInd'];
+    $companyInd = $query[0]['companyInd'];
+    $doc = $query[0]['doc'];
+    $docCompany = $query[0]['docCompany'];
+    $term = $query[0]['term'];
+}
 
 
 $phpWord = new PhpWord();
@@ -25,7 +86,31 @@ $sectionStyle = array(
 
 );
 $section = $phpWord->addSection($sectionStyle);
-
+/*
+CREATE TABLE `POAsignDocuments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `date` varchar(55) NOT NULL,
+  `city` varchar(55) NOT NULL,
+  `company` varchar(55) NOT NULL,
+  `lastName` varchar(55) NOT NULL,
+  `firstName` varchar(55) NOT NULL,
+  `patronymic` varchar(55) NOT NULL,
+  `position` varchar(55) NOT NULL,
+  `lastNameInd` varchar(55) NOT NULL,
+  `firstNameInd` varchar(55) NOT NULL,
+  `patronymicInd` varchar(55) NOT NULL,
+  `pasportIdInd` varchar(55) NOT NULL,
+  `pasportNumInd` varchar(55) NOT NULL,
+  `pasportAddressInd` varchar(55) NOT NULL,
+  `addressInd` varchar(55) NOT NULL,
+  `companyInd` varchar(55) NOT NULL,
+  `doc` varchar(55) NOT NULL,
+  `docCompany` varchar(55) NOT NULL,
+  `term` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);

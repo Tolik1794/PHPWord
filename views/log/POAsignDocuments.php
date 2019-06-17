@@ -3,103 +3,45 @@
 // POAsignDocuments
 //доверенность на подписание документов
 
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\PhpWord;
+$var = 'POAsignDocuments';
 
-require 'vendor/autoload.php';
-require_once 'variables.php';
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+$query = $db->query("SELECT * FROM $var WHERE user_id = '$user_id'");
+
+$i = 0;
+foreach ($query as $doc) {
+    $i++
+    ?>
+    <tr>
+        <th scope="row"><?= $i ?></th>
+        <td><?= $var ?></td>
+        <td><?= $doc['date'] ?></td>
+        <td><?= $doc['city'] ?></td>
+        <td><?= $doc['lastName'] ?></td>
+        <td><?= $doc['firstName'] ?></td>
+        <td><?= $doc['patronymic'] ?></td>
+        <td><?= $doc['lastNameInd'] ?></td>
+        <td><?= $doc['firstNameInd'] ?></td>
+        <td><?= $doc['patronymicInd'] ?></td>
+        <td><?= $doc['companyInd'] ?></td>
+        <td>
+            <form action="delete.php" method="post">
+                <input type="hidden" name="id" value="<?= $doc['id'] ?>">
+                <input type="hidden" name="table" value="<?= $var ?>">
+                <input class="btn btn-danger mb-2" type="submit" value="Delete">
+            </form>
+            <form action="../../<?= $var ?>.php" method="post">
+                <input type="hidden" name="id" value="<?= $doc['id'] ?>">
+                <input type="hidden" name="download" value="1">
+                <input class="btn btn-primary mb-2" type="submit" value="Download">
+            </form>
+        </td>
+        <td></td>
+
+    </tr>
 
 
-
-$phpWord = new PhpWord();
-
-$phpWord->setDefaultFontName('Times New Roman');
-$phpWord->setDefaultFontSize(14);
-
-$sectionStyle = array(
-    'orientation' => 'portrait',
-    'marginTop' => 1000,
-    'marginLeft' => 1800,
-    'marginRight' => 1000,
-    'colsNum' => 1,
-
-);
-$section = $phpWord->addSection($sectionStyle);
-
-$fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
-$paragrafStyle = array('align' => 'center', 'spaceBefore' => 150, 'spaceAfter' => 150);
-$phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
-$section->addTitle(
-
-    'Доверенность',
-
-    1
-);
-
-$table = $section->addTable([$tableStyle]);
-
-$cellHLeft = array('align' => 'left');
-$cellHRight = array('align' => 'right');
-$cellVCentered = array('valign' => 'center');
-
-$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
-$table = $section->addTable('Colspan Rowspan');
-$table->addRow(null, array('tblHeader' => true));
-$table->addCell(4250, $cellVCentered)->addText(
-
-    $date . "г.",
-
-    array('name' => 'TimesNewRoman', 'size' => 12,),
-    $cellHLeft
-);
-$table->addCell(5000, $cellVCentered)->addText(
-
-    "город " . $city,
-
-    array('name' => 'TimesNewRoman', 'size' => 12,),
-    $cellHRight
-);
-
-$text2 =
-
-    $company . " в лице " . $lastName . " " . $firstName . " " . $patronymic . ", " . $position . ", 
-действующего на основании Устава, уполномачивает  " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", 
-выдан " . $pasportAddressInd . ", проживающему по адресу: " . $addressInd . " предсталять интересы " . $companyInd . " следующие документы  
-" . $doc . " в " . $docCompany . " и совершать все остальные действия, 
-связанные с выполнением этого поручения.";
-
-$section->addText(
-    htmlspecialchars($text2),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 150)
-);
-
-$text =
-
-    "Доверенность выдана сроком на " . $term . ".";
-
-$section->addText(
-    htmlspecialchars($text),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spacing' => 150)
-);
-
-$text =
-
-    "Подпись доверителя " . $lastName . " " . $firstName . " " . $patronymic . " _________ удостоверяю.";
-
-$section->addText(
-    htmlspecialchars($text),
-    array('name' => 'TimesNewRoman', 'size' => 12, 'color' => '000000', 'bold' => FALSE, 'italic' => FALSE),
-    array('align' => 'both', 'spacing' => 150)
-);
-
-header("Content-Description: File Transfer");
-header('Content-Disposition: attachment; filename="доверенность на подписание документов.docx"');
-header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-header('Content-Transfer-Encoding: binary');
-header('Cache-Control: must-revalidate, post-check=1, pre-check=0');
-header('Expires: 0');
-
-$xmlWriter = IOFactory::createWriter($phpWord, 'Word2007');
-$xmlWriter->save("php://output");
+<?php } ?>

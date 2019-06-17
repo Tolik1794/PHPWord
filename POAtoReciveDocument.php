@@ -1,13 +1,51 @@
 <?php
-
+session_start();
 // POAtoReciveDocument
 //доверенность на получение документов
 
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
+$var = basename(__FILE__, ".php");
+
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
+
 require 'vendor/autoload.php';
-require_once 'variables.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+    
+    $db->query("INSERT INTO $var (user_id, lastName, firstName, patronymic, pasportId, pasportNum, pasportAddress, address, lastNameInd, firstNameInd, patronymicInd, pasportIdInd, pasportNumInd, pasportAddressInd, addressInd, place, doc, term) VALUES (''{$user_id}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$pasportId}', '{$pasportNum}', '{$pasportAddress}', '{$address}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$pasportAddressInd}', '{$addressInd}', '{$place}', '{$doc}', '{$term}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+
+    $user_id = $query[0]['user_id'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $pasportId = $query[0]['pasportId'];
+    $pasportNum = $query[0]['pasportNum'];
+    $pasportAddress = $query[0]['pasportAddress'];
+    $address = $query[0]['address'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $addressInd = $query[0]['addressInd'];
+    $place = $query[0]['place'];
+    $doc = $query[0]['doc'];
+    $term = $query[0]['term'];
+}
 
 
 
@@ -25,7 +63,30 @@ $sectionStyle = array(
 );
 
 $section = $phpWord->addSection($sectionStyle);
-
+/*
+CREATE TABLE `POAtoReciveDocument` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `lastName` varchar(55) NOT NULL,
+  `firstName` varchar(55) NOT NULL,
+  `patronymic` varchar(55) NOT NULL,
+  `pasportId` varchar(55) NOT NULL,
+  `pasportNum` varchar(55) NOT NULL,
+  `pasportAddress` varchar(55) NOT NULL,
+  `address` varchar(55) NOT NULL,
+  `lastNameInd` varchar(55) NOT NULL,
+  `firstNameInd` varchar(55) NOT NULL,
+  `patronymicInd` varchar(55) NOT NULL,
+  `pasportIdInd` varchar(55) NOT NULL,
+  `pasportNumInd` varchar(55) NOT NULL,
+  `pasportAddressInd` varchar(55) NOT NULL,
+  `addressInd` varchar(55) NOT NULL,
+  `place` varchar(55) NOT NULL,
+  `doc` varchar(55) NOT NULL,
+  `term` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);

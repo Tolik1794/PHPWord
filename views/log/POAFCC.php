@@ -1,49 +1,44 @@
 <?php
-    $docs = $db->query("SELECT * FROM `doc` WHERE docName = 'POAFCC' ORDER BY date DESC");
-?>
 
-<div id="2" style="display:none;">
-    <h1 style="margin: 0 auto;">POAFCC</h1>
-    <table class="table table-striped table-dark">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Date</th>
-                <th scope="col">City</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Patronymic</th>
-                <th scope="col">Last Name 3rd</th>
-                <th scope="col">First Name 3rd</th>
-                <th scope="col">Patronymic 3rd</th>
-                <th scope="col">Company 3rd</th>
-            </tr>
-        </thead>
-        <tbody>
+$var = basename(__FILE__, ".php");
+
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+$query = $db->query("SELECT * FROM $var WHERE user_id = '$user_id'");
+
+$i = 0;
+foreach ($query as $doc) {
+    $i++
+    ?>
+    <tr>
+        <th scope="row"><?= $i ?></th>
+        <td><?= $var ?></td>
+        <td><?= $doc['date'] ?></td>
+        <td><?= $doc['city'] ?></td>
+        <td><?= $doc['lastName'] ?></td>
+        <td><?= $doc['firstName'] ?></td>
+        <td><?= $doc['patronymic'] ?></td>
+        <td><?= $doc['lastNameInd'] ?></td>
+        <td><?= $doc['firstNameInd'] ?></td>
+        <td><?= $doc['patronymicInd'] ?></td>
+        <td><?= $doc['companyInd'] ?></td>
+        <td>
+            <form action="delete.php" method="post">
+                <input type="hidden" name="id" value="<?= $doc['id'] ?>">
+                <input type="hidden" name="table" value="<?= $var ?>">
+                <input class="btn btn-danger mb-2" type="submit" value="Delete">
+            </form>
+            <form action="../../<?= $var ?>.php" method="post">
+                <input type="hidden" name="id" value="<?= $doc['id'] ?>">
+                <input type="hidden" name="download" value="1">
+                <input class="btn btn-primary mb-2" type="submit" value="Download">
+            </form>
+        </td>
+        <td></td>
+
+    </tr>
 
 
-            <?php
-            $i = 0;
-            foreach ($docs as $doc) {
-                $i++
-                ?>
-                <tr>
-                    <th scope="row"><?= $i ?></th>
-                    <td><?= $doc['date'] ?></td>
-                    <td><?= $doc['city'] ?></td>
-                    <td><?= $doc['lastName'] ?></td>
-                    <td><?= $doc['firstName'] ?></td>
-                    <td><?= $doc['patronymic'] ?></td>
-                    <td><?= $doc['lastNameInd'] ?></td>
-                    <td><?= $doc['firstNameInd'] ?></td>
-                    <td><?= $doc['patronymicInd'] ?></td>
-                    <td><?= $doc['companyInd'] ?></td>
-
-                </tr>
-
-
-            <?php } ?>
-
-        </tbody>
-    </table>
-</div>
+<?php } ?>

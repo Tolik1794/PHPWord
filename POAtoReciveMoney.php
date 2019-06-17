@@ -6,9 +6,48 @@
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require 'vendor/autoload.php';
-require_once 'variables.php';
+$var = basename(__FILE__, ".php");
 
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
+
+require 'vendor/autoload.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+
+
+    $db->query("INSERT INTO $var (user_id, lastName, firstName, patronymic, pasportId, pasportNum, pasportAddress, address, lastNameInd, firstNameInd, patronymicInd, pasportIdInd, pasportNumInd, pasportAddressInd, addressInd, moneyPlace, moneyAddress, moneySum, moneyTo) VALUES ('{$user_id}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$pasportId}', '{$pasportNum}', '{$pasportAddress}', '{$address}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$pasportAddressInd}', '{$addressInd}', '{$moneyPlace}', '{$moneyAddress}', '{$moneySum}', '{$moneyTo}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+
+    $user_id = $query[0]['user_id'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $pasportId = $query[0]['pasportId'];
+    $pasportNum = $query[0]['pasportNum'];
+    $pasportAddress = $query[0]['pasportAddress'];
+    $address = $query[0]['address'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $addressInd = $query[0]['addressInd'];
+    $moneyPlace = $query[0]['moneyPlace'];
+    $moneyAddress = $query[0]['moneyAddress'];
+    $moneySum = $query[0]['moneySum'];
+    $moneyTo = $query[0]['moneyTo'];
+}
 
 
 $phpWord = new PhpWord();
@@ -25,15 +64,38 @@ $sectionStyle = array(
 );
 
 $section = $phpWord->addSection($sectionStyle);
-
+/*
+CREATE TABLE `POAtoReciveMoney` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `lastName` varchar(55) NOT NULL,
+  `firstName` varchar(55) NOT NULL,
+  `patronymic` varchar(55) NOT NULL,
+  `pasportId` varchar(55) NOT NULL,
+  `pasportNum` varchar(55) NOT NULL,
+  `pasportAddress` varchar(55) NOT NULL,
+  `address` varchar(55) NOT NULL,
+  `lastNameInd` varchar(55) NOT NULL,
+  `firstNameInd` varchar(55) NOT NULL,
+  `patronymicInd` varchar(55) NOT NULL,
+  `pasportIdInd` varchar(55) NOT NULL,
+  `pasportNumInd` varchar(55) NOT NULL,
+  `pasportAddressInd` varchar(55) NOT NULL,
+  `addressInd` varchar(55) NOT NULL,
+  `moneyPlace` varchar(55) NOT NULL,
+  `moneyAddress` varchar(55) NOT NULL,
+  `moneySum` varchar(55) NOT NULL,
+  `moneyTo` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
 $fontStyle = array('name' => 'Times New Roman', 'size' => 16, 'color' => '000000');
 $paragrafStyle = array('align' => 'center', 'spaceBefore' => 150);
 $phpWord->addTitleStyle(1, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'Доверенность'
-
-    , 1
+    'Доверенность',
+    1
 );
 
 $fontStyle = array('name' => 'Times New Roman', 'size' => 14, 'color' => '000000');
@@ -41,14 +103,13 @@ $paragrafStyle = array('align' => 'center');
 $phpWord->addTitleStyle(2, $fontStyle, $paragrafStyle);
 $section->addTitle(
 
-    'на получение денег'
-
-    , 2
+    'на получение денег',
+    2
 );
 
-$text2 = 
+$text2 =
 
-"Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии "
+    "Я, " . $lastName . " " . $firstName . " " . $patronymic . ", паспорт серии "
     . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
 " . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd .
     ", паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
@@ -62,9 +123,9 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 250)
 );
 
-$text = 
+$text =
 
-"Дата          Подпись";
+    "Дата          Подпись";
 
 $section->addText(
     htmlspecialchars($text),
@@ -72,9 +133,9 @@ $section->addText(
     array('align' => 'both', 'spacing' => 150, 'spaceBefore' => 300)
 );
 
-$text = 
+$text =
 
-"Подпись доверителя удостоверяю.";
+    "Подпись доверителя удостоверяю.";
 
 $section->addText(
     htmlspecialchars($text),

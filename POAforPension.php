@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // POAforPension
 //доверенность на получение пенсии
@@ -6,9 +7,43 @@
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-require 'vendor/autoload.php';
-require_once 'variables.php';
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
 
+require 'vendor/autoload.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+
+    $db->query("INSERT INTO `POAforPension` (lastName, firstName, patronymic, pasportId, pasportNum, pasportAddress, address, lastNameInd, firstNameInd, patronymicInd, pasportIdInd, pasportNumInd, addressInd, company, dateStart, dateFinish, user_id) VALUES ('{$lastName}', '{$firstName}', '{$patronymic}', '{$pasportId}', '{$pasportNum}', '{$pasportAddress}', '{$address}', '{$lastNameInd}', '{$firstNameInd}', '{$patronymicInd}', '{$pasportIdInd}', '{$pasportNumInd}', '{$addressInd}', '{$company}', '{$dateStart}', '{$dateFinish}', '{$user_id}')");
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM `POAforPension` WHERE id = '$id'");
+
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $pasportId = $query[0]['pasportId'];
+    $pasportNum = $query[0]['pasportNum'];
+    $pasportAddress = $query[0]['pasportAddress'];
+    $address = $query[0]['address'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $addressInd = $query[0]['addressInd'];
+    $company = $query[0]['company'];
+    $dateStart = $query[0]['dateStart'];
+    $dateFinish = $query[0]['dateFinish'];
+    $user_id = $query[0]['user_id'];
+}
 
 
 $phpWord = new PhpWord();
@@ -48,7 +83,7 @@ $text2 =
 
     "Я, " . $lastName . " " . $firstName . " " . $patronymic . " (ФИО), паспорт серии " . $pasportId . ", № " . $pasportNum . ", выдан " . $pasportAddress . ", проживающий по адресу:
 " . $address . " доверяю " . $lastNameInd . " " . $firstNameInd . " " . $patronymicInd . " (ФИО), паспорт серии " . $pasportIdInd . ", № " . $pasportNumInd . ", выдан " . $pasportAddressInd . ", проживающему по адресу:
-" . $addressInd . " получить ".$company." (наименование учреждения где выдается пенсия), причитающуюся мне пенсию за ".$dateStart." - ".$dateFinish." (указать период), 
+" . $addressInd . " получить " . $company . " (наименование учреждения где выдается пенсия), причитающуюся мне пенсию за " . $dateStart . " - " . $dateFinish . " (указать период), 
 расписаться  за меня и совершить все действия, связанные с выполнением этого поручения.";
 
 $section->addText(

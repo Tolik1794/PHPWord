@@ -6,8 +6,60 @@
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
+$var = basename(__FILE__, ".php");
+
+require_once('Dbsettings.php');
+require_once('DB.php');
+require_once('Session.php');
+
 require 'vendor/autoload.php';
-require_once 'variables.php';
+$db = new DB($host, $user, $password, $db_name);
+$user_login = Session::get('login');
+$users_id = $db->query("SELECT `id_users` FROM `users` WHERE login = '$user_login'");
+$user_id = $users_id[0]['id_users'];
+
+if (!$_POST['download']) {
+
+    require_once 'variables.php';
+ 
+
+    $db->query("INSERT INTO $var (user_id, cityNotarius, lastNameNotarius, firstNameNotarius, patronymicNotarius, requisiteNotarius, addressNotarius, phoneNotarius, destination, lastName, firstName, patronymic, birthDate, birthPlace, pasportId, pasportNum, pasportAddress, address, lastNameCh, firstNameCh, patronymicCh, birthDateCh, birthCertificateNum, birthCertificatePlace, birthCertificateDate, purpose, dateStart, dateFinish, lastNameMr, firstNameMr, patronymicMr, birthDateMr, birthPlaceMr, pasportIdMr, pasportNumMr, pasportAddressMr, AddressMr, city, dateInWord, registryNum, tariff) VALUES ('{$user_id}', '{$cityNotarius}', '{$lastNameNotarius}', '{$firstNameNotarius}', '{$patronymicNotarius}', '{$requisiteNotarius}', '{$addressNotarius}', '{$phoneNotarius}', '{$destination}', '{$lastName}', '{$firstName}', '{$patronymic}', '{$birthDate}', '{$birthPlace}', '{$pasportId}', '{$pasportNum}', '{$pasportAddress}', '{$address}', '{$lastNameCh}', '{$firstNameCh}', '{$patronymicCh}', '{$birthDateCh}', '{$birthCertificateNum}', '{$birthCertificatePlace}', '{$birthCertificateDate}', '{$purpose}', '{$dateStart}', '{$dateFinish}', '{$lastNameMr}', '{$firstNameMr}', '{$patronymicMr}', '{$birthDateMr}', '{$birthPlaceMr}', '{$pasportIdMr}', '{$pasportNumMr}', '{$pasportAddressMr}', '{$AddressMr}', '{$city}', '{$dateInWord}', '{$registryNum}', '{$tariff}')");
+
+} else {
+    $id = $_POST['id'];
+    $query = $db->query("SELECT * FROM $var WHERE id = '$id'");
+    
+    $arr = array_keys($query[0]);
+    $count = count($arr);
+    $i = 0;
+    $test = [];
+    foreach (array_slice($arr, 1) as $value) {
+        $i++;
+        
+            echo "\$".$value." = \$query[0]['" . $value . "'];".'<br>';
+        
+    }
+    die;
+
+    $date = $query[0]['date'];
+    $city = $query[0]['city'];
+    $user_id = $query[0]['user_id'];
+    $company = $query[0]['company'];
+    $lastName = $query[0]['lastName'];
+    $firstName = $query[0]['firstName'];
+    $patronymic = $query[0]['patronymic'];
+    $position = $query[0]['position'];
+    $lastNameInd = $query[0]['lastNameInd'];
+    $firstNameInd = $query[0]['firstNameInd'];
+    $patronymicInd = $query[0]['patronymicInd'];
+    $companyInd = $query[0]['companyInd'];
+    $addressInd = $query[0]['addressInd'];
+    $pasportAddressInd = $query[0]['pasportAddressInd'];
+    $pasportIdInd = $query[0]['pasportIdInd'];
+    $pasportNumInd = $query[0]['pasportNumInd'];
+    $term = $query[0]['term'];
+    $FSS = $query[0]['FSS'];
+}
 
 
 
@@ -29,7 +81,53 @@ $table = $section->addTable([$tableStyle]);
 
 $cellHCentered = array('align' => 'left');
 $cellVCentered = array('valign' => 'center');
-
+/*
+CREATE TABLE `POAonLeavingTheChild` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `cityNotarius` varchar(55) NOT NULL,
+  `lastNameNotarius` varchar(55) NOT NULL,
+  `firstNameNotarius` varchar(55) NOT NULL,
+  `patronymicNotarius` varchar(55) NOT NULL,
+  `requisiteNotarius` varchar(55) NOT NULL,
+  `addressNotarius` varchar(55) NOT NULL,
+  `phoneNotarius` varchar(55) NOT NULL,
+  `destination` varchar(55) NOT NULL,
+  `lastName` varchar(55) NOT NULL,
+  `firstName` varchar(55) NOT NULL,
+  `patronymic` varchar(55) NOT NULL,
+  `birthDate` varchar(55) NOT NULL,
+  `birthPlace` varchar(55) NOT NULL,
+  `pasportId` varchar(55) NOT NULL,
+  `pasportNum` varchar(55) NOT NULL,
+  `pasportAddress` varchar(55) NOT NULL,
+  `address` varchar(55) NOT NULL,
+  `lastNameCh` varchar(55) NOT NULL,
+  `firstNameCh` varchar(55) NOT NULL,
+  `patronymicCh` varchar(55) NOT NULL,
+  `birthDateCh` varchar(55) NOT NULL,
+  `birthCertificateNum` varchar(55) NOT NULL,
+  `birthCertificatePlace` varchar(55) NOT NULL,
+  `birthCertificateDate` varchar(55) NOT NULL,
+  `purpose` varchar(55) NOT NULL,
+  `dateStart` varchar(55) NOT NULL,
+  `dateFinish` varchar(55) NOT NULL,
+  `lastNameMr` varchar(55) NOT NULL,
+  `firstNameMr` varchar(55) NOT NULL,
+  `patronymicMr` varchar(55) NOT NULL,
+  `birthDateMr` varchar(55) NOT NULL,
+  `birthPlaceMr` varchar(55) NOT NULL,
+  `pasportIdMr` varchar(55) NOT NULL,
+  `pasportNumMr` varchar(55) NOT NULL,
+  `pasportAddressMr` varchar(55) NOT NULL,
+  `AddressMr` varchar(55) NOT NULL,
+  `city` varchar(55) NOT NULL,
+  `dateInWord` varchar(55) NOT NULL,
+  `registryNum` varchar(55) NOT NULL,
+  `tariff` varchar(55) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+*/
 $phpWord->addTableStyle('Colspan Rowspan', $styleTable);
 $table = $section->addTable('Colspan Rowspan');
 $table->addRow(null, array('tblHeader' => true));
