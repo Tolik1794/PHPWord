@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/views/log/log.php">Log <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/views/log/log.php">Просмотр <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav justify-content-end">
